@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/main.css' %}" />
+        <link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    </head>
+    <body>
+        <div style="width: 100%; height: 100%; background-color: royalblue;">
+            <p style="color: red !important; font-size: 30px; padding-top: 100px; padding-bottom: 100px; text-align: center;">{{greetings}}</p>
+        </div>
+        <div id="canvasContainer" style="width: 500px; height: 400px">
+            <canvas id="myChart" style="width: 500px; height: 400px"></canvas>
+        </div>
+        <script type="text/javascript">
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'pie',
+                
+                // The data for our dataset
+                data: {
+                    datasets: [{
+                        label: 'Red',
+                        backgroundColor: ['red', 'yellow', 'blue', 'green', 'orange'],
+                        data: [10, 20, 20, 10, 15]
+                    }],
+                
+                    // These labels appear in the legend and in the tooltips when hovering different arcs
+                    labels: [
+                        'Red',
+                        'Yellow',
+                        'Blue',
+                        'Green',
+                        'Orange'
+                    ]
+                },
+    
+                // Configuration options go here
+                options: {
+                    animation: false
+                }
+            });
+        </script>
+    </body>
+</html>
