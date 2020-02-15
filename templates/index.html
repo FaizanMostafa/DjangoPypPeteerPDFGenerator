@@ -4,44 +4,405 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/main.css' %}" />
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                -webkit-print-color-adjust: exact;
+            }
+    
+            /* #6BC4CC */
+            .container {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                max-width: 700px;
+                margin: 0 auto;
+                background: #ffffff url("{% static 'icons/bg.jpg' %}") repeat center center;
+                background-size: contain;
+            }
+    
+            .heading-wrap {
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: row;
+                align-items: center;
+            }
+    
+            .heading-icon {
+                width: 20px;
+                height: auto;
+            }
+    
+            .section-wrap {
+                padding: 10px 0px;
+                margin: 0px 0 0 50px;
+                border-bottom: 0.5px solid #efefea;
+            }
+    
+            .heading {
+                font-weight: 600;
+                margin-right: 10px;
+            }
+    
+            .sub-heading {
+                font-size: 14px;
+                margin: 5px 0;
+                color: gray
+            }
+    
+            .subheading-value {
+                font-size: 14px;
+                color: gray;
+            }
+    
+            .chip-wrap {
+                display: flex;
+                flex-wrap: wrap;
+                /* width: 100%; */
+            }
+    
+            .chip {
+                /* margin: 0 7px 8px 0; */
+                font-size: 13px;
+                color: #333;
+                list-style: none;
+                margin-right: 4px;
+            }
+    
+            .chip span {
+                position: relative;
+                left: -2px;
+            }
+    
+            hr {
+                border-color: #efefea;
+                border-width: 00.5px;
+            }
+    
+            .header-footer-div {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0px 10px;
+                background-color: #333;
+                color: #fff;
+                font-size: 20px;
+            }
+    
+            .dot {
+                width: 10px;
+                position: relative;
+                height: 10px;
+                border-radius: 20px;
+                margin-right: 7px;
+            }
+    
+            .online {
+                background: rgb(70, 171, 78);
+            }
+    
+            .offline {
+                background-color: rgb(212, 78, 78);
+            }
+    
+            .not-connected {
+                background-color: rgb(237, 192, 85);
+            }
+    
+            #logo {
+                width: 100px;
+                height: auto;
+            }
+    
+            .chart-wrap {
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-around;
+                text-align: center;
+            }
+    
+            .chart-wrap div {
+                width: 45%
+            }
+        </style>
         <link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     </head>
     <body>
-        <div style="width: 100%; height: 100%; background-color: royalblue;">
-            <p style="color: red !important; font-size: 30px; padding-top: 100px; padding-bottom: 100px; text-align: center;">{{greetings}}</p>
-        </div>
-        <div id="canvasContainer" style="width: 500px; height: 400px">
-            <canvas id="myChart" style="width: 500px; height: 400px"></canvas>
-        </div>
-        <script type="text/javascript">
-            var ctx = document.getElementById('myChart').getContext('2d');
-            var chart = new Chart(ctx, {
-                // The type of chart we want to create
-                type: 'pie',
-                
-                // The data for our dataset
-                data: {
-                    datasets: [{
-                        label: 'Red',
-                        backgroundColor: ['red', 'yellow', 'blue', 'green', 'orange'],
-                        data: [10, 20, 20, 10, 15]
-                    }],
-                
-                    // These labels appear in the legend and in the tooltips when hovering different arcs
-                    labels: [
-                        'Red',
-                        'Yellow',
-                        'Blue',
-                        'Green',
-                        'Orange'
-                    ]
-                },
+        <div class="container">
+            <div class="header-footer-div" style="padding: 8px;">
+                <img src="{% static 'icons/ZPE-Logo.png' %}" id="logo" />
+            </div>
     
-                // Configuration options go here
+            <div class="chart-wrap">
+                <div>
+                    <p>Total Sites: 10</p>
+                    <canvas id="total-sites-chart" width="125" height="80"></canvas>
+                    </canvas>
+                </div>
+    
+                <div>
+                    <p>Total Devices: 50</p>
+                    <canvas id="total-devices-chart" width="125" height="80"></canvas>
+                    </canvas>
+                </div>
+            </div>
+    
+            <!-- Copmany Information section -->
+            <div class="section-wrap">
+                <div class="heading-wrap">
+                    <p class="heading">Company Information</p>
+                    <img class="heading-icon" src="{% static 'icons/work.png' %}" />
+                </div>
+    
+                <p class="sub-heading">Company Name : <span class="subheading-value">ZPE Systems</span></p>
+                <p class="sub-heading">Address : <span class="subheading-value">USA</span></p>
+            </div>
+    
+            <!-- Sites Information section -->
+            <div class="section-wrap">
+                <div class="heading-wrap">
+                    <p class="heading">Sites Information</p>
+                    <img class="heading-icon" src="{% static 'icons/map-location.png' %}" />
+                </div>
+    
+                <div class="heading-wrap">
+                    <div class="dot online"></div>
+                    <p class="sub-heading" style="margin-right: 10px">Sites which are online :</p>
+    
+                    <div class="chip-wrap">
+                        <li class="chip"><span>ZPE_India, </span></li>
+                        <li class="chip"><span>ZPE_Test</span></li>
+                    </div>
+    
+    
+                </div>
+    
+    
+                <div class="heading-wrap">
+                    <div class="dot offline"></div>
+                    <p class="sub-heading" style="margin-right: 10px">Sites which are offline :</p>
+    
+                    <div class="chip-wrap">
+                        <li class="chip"><span>ZPE_Brazil</span></li>
+                    </div>
+    
+                </div>
+    
+    
+                <div class="heading-wrap">
+                    <div class="dot not-connected"></div>
+                    <p class="sub-heading" style="margin-right: 10px">Sites which are in partial state :</p>
+                    <div class="chip-wrap">
+                        <li class="chip"><span>ZPE_Ireland</span></li>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Devices Information section -->
+            <div class="section-wrap">
+                <div class="heading-wrap">
+                    <p class="heading">Devices Summary</p>
+                    <img class="heading-icon" src="{% static 'icons/modem.png' %}" />
+                </div>
+    
+                <div class="heading-wrap">
+                    <div class="dot online"></div>
+                    <p class="sub-heading">
+                        Devices currently in online state :
+                        <span class="subheading-value">3</span>
+                    </p>
+                </div>
+                <div class="heading-wrap">
+                    <div class="dot offline"></div>
+                    <p class="sub-heading">Devices currently in offline state : <span class="subheading-value">4</span></p>
+                </div>
+                <div class="heading-wrap">
+                    <div class="dot not-connected"></div>
+                    <p class="sub-heading">
+                        Device currently in never connected state :
+                        <span class="subheading-value">6</span>
+                    </p>
+                </div>
+    
+                <hr />
+    
+                <p class="sub-heading">Available Devices : <span class="subheading-value">16</span></p>
+                <p class="sub-heading">Enrolled Devices : <span class="subheading-value">14</span></p>
+                <hr />
+    
+                <p class="sub-heading">NSR Mode Devices : <span class="subheading-value">15</span></p>
+                <p class="sub-heading">NGB-SR Model Devices : <span class="subheading-value">10</span></p>
+                <p class="sub-heading">NGL-SR Model Devices : <span class="subheading-value">4</span></p>
+            </div>
+    
+    
+            <div class="header-footer-div">
+                <p>1 | Cloud Report</p>
+                <p>Confidential</p>
+            </div>
+        </div>
+    
+    
+        <!-- SECOND PAGE -->
+        <div style="margin-top: 120px;" class="container">
+            <div class="header-footer-div" style="padding: 8px;">
+                <img src="{% static 'icons/ZPE-Logo.png' %}" id="logo" />
+            </div>
+    
+            <div class="section-wrap">
+                <div class="heading-wrap">
+                    <p class="heading">Device Data Summary</p>
+                    <img class="heading-icon" src="{% static 'icons/download.png' %}" />
+                </div>
+    
+                <p class="sub-heading">Total TX bytes : <span class="subheading-value">2000 bytes</span></p>
+                <p class="sub-heading">Total RX bytes : <span class="subheading-value">2000 bytes</span></p>
+    
+                <canvas id="device-data-chart" width="200px" height="80px"></canvas>
+                <hr />
+                <p class="sub-heading">Cellular Data Usage for January : <span class="subheading-value">2 GB</span>
+                </p>
+            </div>
+    
+            <!-- Groups -->
+            <div class="section-wrap">
+                <div class="heading-wrap">
+                    <p class="heading">Groups</p>
+                    <img class="heading-icon" src="{% static 'icons/group.png' %}" />
+                </div>
+    
+                <p class="sub-heading">Total Groups : <span class="subheading-value">5</span></p>
+                <p class="sub-heading">Devices assigned to G1 : <span class="subheading-value">3</span></p>
+                <p class="sub-heading">Devices assigned to G2 : <span class="subheading-value">5</span></p>
+                <p class="sub-heading">Devices assigned to G3 : <span class="subheading-value">6</span></p>
+            </div>
+    
+            <!-- Users -->
+            <div class="section-wrap">
+                <div class="heading-wrap">
+                    <p class="heading">Users</p>
+                    <img class="heading-icon" src="{% static 'icons/user.png' %}" />
+                </div>
+    
+                <div class="heading-wrap">
+                    <div>
+                        <p class="sub-heading">Users with Customer Admin role : <span class="subheading-value">4</span></p>
+                        <p class="sub-heading">Users with Group Admin role : <span class="subheading-value">2</span></p>
+                    </div>
+    
+                    <div style="margin-left: 30px;">
+                        <p class="sub-heading">Currently Active Users : <span class="subheading-value">5</span></p>
+                        <p class="sub-heading">Currently Locked Users: <span class="subheading-value">0</span></p>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Profiles -->
+            <div class="section-wrap">
+                <div class="heading-wrap">
+                    <p class="heading">Profiles</p>
+                    <img class="heading-icon" src="{% static 'icons/profile.png' %}" />
+                </div>
+    
+                <p class="sub-heading">Total Configuration available : <span class="subheading-value">5</span></p>
+                <p class="sub-heading">Total Scripts available : <span class="subheading-value">6</span></p>
+                <p class="sub-heading">Total Backup Operations : <span class="subheading-value">10</span></p>
+                <p class="sub-heading">Total Software Versions available : <span class="subheading-value">1</span></p>
+            </div>
+    
+            <div class="header-footer-div">
+                <p>2 | Cloud Report</p>
+                <p>Confidential</p>
+            </div>
+        </div>
+    
+        </div>
+
+
+        <script type="text/javascript">
+            var ts = document.getElementById('total-sites-chart').getContext('2d');
+            var myChart = new Chart(ts, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        'Online',
+                        'Offline',
+                        'Partial',
+                    ],
+                    datasets: [{
+                        data: [400, 1000, 100],
+                        backgroundColor: [
+                            'rgb(70, 171, 78)',
+                            'rgb(212, 78, 78)',
+                            'rgb(237, 192, 85)',
+                        ]
+                    }],
+                },
                 options: {
-                    animation: false
+                    animation: false,
+                    legend: {
+                        display: true,
+                        position: "bottom",
+                        labels: {
+                            boxWidth: 12
+                        }
+                    }
                 }
+
+            });
+
+            var td = document.getElementById('total-devices-chart').getContext('2d');
+            var myChart = new Chart(td, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        'Online',
+                        'Offline',
+                        'Never connected'
+                    ],
+                    datasets: [{
+                        data: [0, 0, 100],
+                        backgroundColor: [
+                            'rgb(70, 171, 78)',
+                            'rgb(212, 78, 78)',
+                            'rgba(26, 128, 242,0.8)',
+                        ]
+                    }],
+                },
+
+                options: {
+                    animation: false,
+                    legend: {
+                        display: true,
+                        position: "bottom",
+                        labels: {
+                            boxWidth: 12
+                        }
+
+                    }
+                }
+            });
+
+            var ctx = document.getElementById('device-data-chart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'doughnut',
+                options: {
+                    animation: false,
+                },
+                data: {
+                    labels: [
+                        'rxBytes',
+                        'txBytes'
+                    ],
+                    datasets: [{
+                        data: [400, 1000],
+                        backgroundColor: ['rgba(255, 238, 54, 0.7)', 'rgba(76, 148, 52,0.7)']
+                    }]
+                },
+
             });
         </script>
     </body>
